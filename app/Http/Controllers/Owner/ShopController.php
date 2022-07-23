@@ -20,7 +20,7 @@ class ShopController extends Controller
         $this->middleware(function($request, $next) {
             $id = $request->route()->parameter('shop');
             if (!is_null($id)) { // null判定
-                $shopsOwnerId = Shop::findOrfail($id)->owner->id;
+                $shopsOwnerId = Shop::findOrFail($id)->owner->id;
                 $shopId = (int)$shopsOwnerId; // キャスト文字列->数値
                 $ownerId = Auth::id();
                 if ($shopId !== $ownerId) { // 同じじゃなかったら404表示
@@ -43,16 +43,29 @@ class ShopController extends Controller
     }
 
     public function update(UploadImageRequest $request, $id) {
+        $request->validate([
+            'name' => 'required|string|max:50',
+            'information' => 'required|string|max:1000|',
+            'is_selling' => 'required',
+        ]);
+
         $imageFile = $request->image;
         if(!is_null($imageFile) && $imageFile->isValid() ) {
             $fileNameToStore = ImageService::upload($imageFile, 'shops');
-            // Storage::putFile('public/shops', $imageFile); リサイズなし
-            // $fileName = uniqid(rand().'_');
-            // $extension = $imageFile->extension();
-            // $fileNameToStore = $fileName . '.' . $extension;
-            // $resizedImage = InterventionImage::make($imageFile)->resize(1920, 1080)->encode();
-            // Storage::put('public/shops/' . $fileNameToStore, $resizedImage);
         }
-        return redirect()->route('owner.shops.index');
+
+        $shop = Shop::findOrFail($id);
+        $shop->name = $request->name;
+        $shop->information = $request->information;
+        $shop->is_selling = $request->is_selling;
+        if(!is_null($imageFile) && $imageFile->isValid()) {
+            $shop->filename = $fileNameToStore;
+        }
+        $shop->save();
+
+        return redirect()
+        ->route('owner.shops.index')
+        ->with(['message' => '店舗情報を更新しました',
+        'status' => 'info']);
     }
 }
