@@ -23,7 +23,7 @@
                     </a>
                     </div>
                     @endforeach
-                    {{ $image->links() }}
+                    {{ $images->links() }}
                 </div>
             </div>
         </div>
