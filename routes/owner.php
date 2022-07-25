@@ -24,9 +24,9 @@ use App\Http\Controllers\Owner\ProductController;
 |
 */
 
-Route::get('/', function () {
-    return view('owner.welcome');
-});
+// Route::get('/', function () {
+//     return view('owner.welcome');
+// });
 
 Route::prefix('shops')->
 middleware('auth:owners')->group(function() {
@@ -53,12 +53,12 @@ Route::get('/dashboard', function () {
 // Route::get('/servicecontainertest', [LifeCycleTestController::class, 'showServiceContainerTest']);
 // Route::get('/serviceprovidertest', [LifeCycleTestController::class, 'showServiceProviderTest']);
 
-Route::get('/register', [RegisteredUserController::class, 'create'])
-                ->middleware('guest')
-                ->name('register');
+// Route::get('/register', [RegisteredUserController::class, 'create'])
+//                 ->middleware('guest')
+//                 ->name('register');
 
-Route::post('/register', [RegisteredUserController::class, 'store'])
-                ->middleware('guest');
+// Route::post('/register', [RegisteredUserController::class, 'store'])
+//                 ->middleware('guest');
 
 Route::get('/login', [AuthenticatedSessionController::class, 'create'])
                 ->middleware('guest')
