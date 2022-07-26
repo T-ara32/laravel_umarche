@@ -2,6 +2,12 @@
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
 /* @import 'micromodal'; */
+@import 'swiper';
+
+.swiper-container {
+  /* width: 600px; */
+  height: 300px;
+}
 
 /**************************\
   Basic Modal Styles
