@@ -32,7 +32,7 @@
               </div>
               <div>
                 <span class="text-sm">表示件数</span><br>
-                <select id="sort" name="sort" class="mr-4">
+                <select id="pagination" name="pagination" class="mr-4">
                   <option value="20" @if(\Request::get('pagination') === '20') selected @endif>
                     20件
                   </option>
@@ -85,8 +85,9 @@
   })
 
   const paginate = document.getElementById('pagination')
-  paginate.addEventListener('change', function() {
-    this.form.submit()
+    paginate.addEventListener('change', function(){
+        this.form.submit()
   })
+
 </script>
 </x-app-layout>
