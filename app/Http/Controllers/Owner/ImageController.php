@@ -142,7 +142,7 @@ class ImageController extends Controller
                     $product->image4 = null;
                     $product->save();
                 }
-            })
+            });
         }
 
         $filePath = 'public/products/' . $image->filename;
